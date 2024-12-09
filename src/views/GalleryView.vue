@@ -1,18 +1,25 @@
 <template>
   <div class="galleryView">
     <img class="logo" alt="logo" src="../assets/logo.svg" />
-    <GalleryLayout></GalleryLayout>
+    <GalleryLayout>
+      <GalleryTopBar />
+      <GalleryGrid />
+    </GalleryLayout>
   </div>
 </template>
 
 <script lang="ts">
+import GalleryGrid from "@/components/GalleryGrid.vue";
 import GalleryLayout from "@/components/GalleryLayout.vue";
+import GalleryTopBar from "@/components/GalleryTopBar.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "GalleryView",
   components: {
     GalleryLayout,
+    GalleryTopBar,
+    GalleryGrid,
   },
 });
 </script>

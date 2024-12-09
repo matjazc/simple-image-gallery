@@ -1,14 +1,10 @@
 <template>
-  <div class="galleryLayout">GalleryLayout</div>
+  <div class="galleryLayout"><slot></slot></div>
 </template>
 
 <script>
 export default {
   name: "GalleryLayout",
-
-  setup() {
-    //TODO:
-  },
 };
 </script>
 
