@@ -3,10 +3,16 @@
 </template>
 
 <script lang="ts">
+import { useGalleryStore } from "@/store/galleryStore";
+import { storeToRefs } from "pinia";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "GalleryGrid",
+  setup() {
+    const store = useGalleryStore();
+    const { images } = storeToRefs(store);
+  },
 });
 </script>
 
