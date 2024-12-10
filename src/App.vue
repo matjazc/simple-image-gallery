@@ -9,7 +9,7 @@
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $text-color;
+  color: $primary-text-color;
 }
 
 body {
