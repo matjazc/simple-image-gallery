@@ -18,5 +18,6 @@ export default {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid $primary-color;
+  color: $secondary-text-color;
 }
 </style>

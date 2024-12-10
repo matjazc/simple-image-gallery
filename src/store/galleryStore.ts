@@ -15,7 +15,7 @@ interface State {
   currentPage: number;
 }
 
-export const useGalleryStore = defineStore("counter", {
+export const useGalleryStore = defineStore("gallery", {
   state: (): State => ({
     images: [],
     loading: false,

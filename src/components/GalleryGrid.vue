@@ -1,11 +1,7 @@
 <template>
   <div class="galleryGrid">
     <div v-for="image in images" :key="image.id">
-      <img
-        :src="`https://picsum.photos/id/${image.id}/240`"
-        :alt="image.author"
-      />
-      <p>{{ image.author }}</p>
+      <GalleryCard :author="image.author" :id="image.id" />
     </div>
   </div>
 </template>
@@ -14,9 +10,13 @@
 import { useGalleryStore } from "@/store/galleryStore";
 import { storeToRefs } from "pinia";
 import { defineComponent, onMounted } from "vue";
+import GalleryCard from "./GalleryCard.vue";
 
 export default defineComponent({
   name: "GalleryGrid",
+  components: {
+    GalleryCard,
+  },
   setup() {
     const store = useGalleryStore();
     const { images, currentPage } = storeToRefs(store);
@@ -38,8 +38,9 @@ export default defineComponent({
 
 .galleryGrid {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 12px;
   margin: 20px 20px 0 20px;
 }
 </style>
