@@ -1,3 +1,3 @@
 export enum apiRoutes {
-  RANDOM_IMAGES = "https://picsum.photos/v2",
+  RANDOM_IMAGES = "https://picsum.photos",
 }

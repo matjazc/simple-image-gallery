@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <img
-      :src="`https://picsum.photos/id/${id}/240`"
+      :src="`${apiRoutes.RANDOM_IMAGES}/id/${id}/240`"
       alt="card image"
       class="img"
       @click="viewImgDetails(id)"
@@ -15,6 +15,9 @@
 </template>
 
 <script lang="ts">
+import { apiRoutes } from "@/constants/apiRoutes";
+import router from "@/router";
+
 export default {
   name: "GalleryCard",
   props: {
@@ -29,9 +32,9 @@ export default {
   },
   setup() {
     const viewImgDetails = (id: string) => {
-      //TODO: router.push({ name: "ImageDetails", params: { id } });
+      router.push({ name: "ImageDetails", params: { id } });
     };
-    return { viewImgDetails };
+    return { viewImgDetails, apiRoutes };
   },
 };
 </script>
@@ -50,7 +53,7 @@ export default {
   }
 
   .content {
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px;
 
     .author {
       font-size: 14px;
