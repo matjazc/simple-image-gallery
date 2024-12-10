@@ -7,10 +7,13 @@ interface Image {
   id: string;
   author: string;
   download_url: string;
+  width: number;
+  height: number;
 }
 
 interface State {
   images: Image[];
+  imgDetails: Image | null;
   loading: boolean;
   currentPage: number;
 }
@@ -18,6 +21,7 @@ interface State {
 export const useGalleryStore = defineStore("gallery", {
   state: (): State => ({
     images: [],
+    imgDetails: null,
     loading: false,
     currentPage: 1,
   }),
@@ -27,12 +31,28 @@ export const useGalleryStore = defineStore("gallery", {
 
       try {
         const response = await axios.get<Image[]>(
-          `${apiRoutes.RANDOM_IMAGES}/list?page=${page}&limit=${MAX_ITEMS_PER_PAGE}`
+          `${apiRoutes.RANDOM_IMAGES}/v2/list?page=${page}&limit=${MAX_ITEMS_PER_PAGE}`
         );
 
         this.images = response.data;
       } catch (error) {
         console.error("Error fetching images:", error);
+        return error;
+      } finally {
+        this.loading = false;
+      }
+    },
+    async getImgDetails(id: string) {
+      this.loading = true;
+
+      try {
+        const response = await axios.get<Image>(
+          `${apiRoutes.RANDOM_IMAGES}/id/${id}/info`
+        );
+
+        this.imgDetails = response.data;
+      } catch (error) {
+        console.error("Error fetching image details:", error);
         return error;
       } finally {
         this.loading = false;
