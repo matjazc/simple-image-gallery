@@ -8,8 +8,10 @@
 <script lang="ts">
 import ImgDetailsContent from "@/components/ImgDetailsContent.vue";
 import ImgDetailsTopBar from "@/components/ImgDetailsTopBar.vue";
+import { GALLERY_TOTAL_IMAGES } from "@/constants/constants";
+import router from "@/router";
 import { useGalleryStore } from "@/store/galleryStore";
-import { defineComponent, onMounted, onUnmounted } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
@@ -21,15 +23,38 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const store = useGalleryStore();
-    const id = route.params.id as string;
     const { getImgDetails } = store;
+    const id = ref(route.params.id);
+
+    const navigateToImage = (newId: number) => {
+      router.replace({ name: "ImageDetails", params: { id: newId } });
+    };
+
+    const handleKeydown = (e: KeyboardEvent) => {
+      const currentId = Number(id.value);
+      if (e.key === "ArrowLeft" && currentId > 0) {
+        navigateToImage(currentId - 1);
+      } else if (e.key === "ArrowRight" && currentId < GALLERY_TOTAL_IMAGES) {
+        navigateToImage(currentId + 1);
+      }
+    };
+
+    watch(
+      () => route.params.id,
+      (newId) => {
+        id.value = newId;
+        getImgDetails(newId.toString());
+      }
+    );
 
     onMounted(() => {
-      getImgDetails(id);
+      getImgDetails(id.value.toString());
+      document.addEventListener("keydown", handleKeydown);
     });
 
     onUnmounted(() => {
       store.imgDetails = null;
+      document.removeEventListener("keydown", handleKeydown);
     });
   },
 });
