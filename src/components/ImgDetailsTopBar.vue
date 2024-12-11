@@ -14,15 +14,21 @@
 import router from "@/router";
 import { useGalleryStore } from "@/store/galleryStore";
 import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 
 export default {
   name: "ImgDetailsTopBar",
   setup() {
+    const route = useRoute();
+    const id = route.params.id as string;
+
     const store = useGalleryStore();
     const { loading, imgDetails } = storeToRefs(store);
+    const { addMarkedId } = store;
 
     const goBack = () => {
       router.push("/");
+      addMarkedId(id);
     };
 
     return {

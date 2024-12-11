@@ -1,11 +1,14 @@
 <template>
   <div class="card">
-    <img
-      :src="`${apiRoutes.RANDOM_IMAGES}/id/${id}/240`"
-      alt="card image"
-      class="img"
-      @click="viewImgDetails(id)"
-    />
+    <div class="imgWrapper">
+      <img
+        :src="`${apiRoutes.RANDOM_IMAGES}/id/${id}/240`"
+        alt="card image"
+        @click="viewImgDetails(id)"
+      />
+      <div v-if="markedImages.includes(id)" class="overlay">Viewed</div>
+    </div>
+
     <div class="content">
       <div class="author">{{ author }}</div>
       <div class="divider"></div>
@@ -17,6 +20,8 @@
 <script lang="ts">
 import { apiRoutes } from "@/constants/apiRoutes";
 import router from "@/router";
+import { useGalleryStore } from "@/store/galleryStore";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "GalleryCard",
@@ -31,10 +36,13 @@ export default {
     },
   },
   setup() {
+    const store = useGalleryStore();
+    const { markedImages } = storeToRefs(store);
+
     const viewImgDetails = (id: string) => {
       router.push({ name: "ImageDetails", params: { id } });
     };
-    return { viewImgDetails, apiRoutes };
+    return { viewImgDetails, apiRoutes, markedImages };
   },
 };
 </script>
@@ -48,10 +56,31 @@ export default {
   overflow: hidden;
   background-color: $primary-color;
 
-  .img {
-    cursor: pointer;
-  }
+  .imgWrapper {
+    position: relative;
 
+    img {
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      width: 240px;
+      height: 240px;
+      max-width: 240px;
+      background-color: $viewed-overlay-color;
+      color: $background-color;
+      font-size: 24px;
+      font-weight: bold;
+      pointer-events: none;
+    }
+  }
   .content {
     padding: 0 10px 10px;
 
