@@ -16,6 +16,7 @@ interface State {
   imgDetails: Image | null;
   loading: boolean;
   currentPage: number;
+  markedImages: string[];
 }
 
 export const useGalleryStore = defineStore("gallery", {
@@ -24,6 +25,7 @@ export const useGalleryStore = defineStore("gallery", {
     imgDetails: null,
     loading: false,
     currentPage: 1,
+    markedImages: [],
   }),
   actions: {
     async getImages() {
@@ -60,6 +62,9 @@ export const useGalleryStore = defineStore("gallery", {
     },
     setCurrentPage(page: number) {
       this.currentPage = page;
+    },
+    addMarkedId(id: string) {
+      this.markedImages.push(id);
     },
   },
 });
