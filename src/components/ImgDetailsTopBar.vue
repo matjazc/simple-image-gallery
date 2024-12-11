@@ -47,7 +47,7 @@ export default {
   display: flex;
   padding: 10px 20px;
   background-color: $background-color;
-  border: 1px solid $secondary-color;
+  border-bottom: 1px solid $secondary-color;
 
   .iconLeft {
     height: 24px;
