@@ -46,6 +46,7 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: left;
   gap: 12px;
-  margin: 20px 20px 0;
+  padding: 20px 20px 0;
+  overflow: auto;
 }
 </style>

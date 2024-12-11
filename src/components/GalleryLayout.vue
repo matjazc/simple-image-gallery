@@ -18,5 +18,6 @@ export default {
   margin: 0 10px;
   border-radius: 8px 8px 0 0;
   background-color: $background-color;
+  overflow: auto;
 }
 </style>
