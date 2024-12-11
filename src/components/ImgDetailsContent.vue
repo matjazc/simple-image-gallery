@@ -1,7 +1,7 @@
 <template>
   <div class="imgDetailsContent">
     <div class="imgSize">
-      {{ loading ? "..." : `${imgDetails?.width}x${imgDetails?.height}` }}
+      {{ isLoading ? "..." : `${imgDetails?.width}x${imgDetails?.height}` }}
     </div>
     <div v-if="imgDetails" class="container">
       <img :src="imgDetails.download_url" />
@@ -17,11 +17,11 @@ export default {
   name: "ImgDetailsContent",
   setup() {
     const store = useGalleryStore();
-    const { loading, imgDetails } = storeToRefs(store);
+    const { isLoading, imgDetails } = storeToRefs(store);
 
     return {
       imgDetails,
-      loading,
+      isLoading,
     };
   },
 };
