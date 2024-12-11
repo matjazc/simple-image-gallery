@@ -6,7 +6,7 @@
       src="../assets/arrow-left-regular.svg"
       @click="goBack()"
     />
-    <div class="author">{{ loading ? "..." : imgDetails?.author }}</div>
+    <div class="author">{{ isLoading ? "..." : imgDetails?.author }}</div>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
     const id = route.params.id as string;
 
     const store = useGalleryStore();
-    const { loading, imgDetails } = storeToRefs(store);
+    const { isLoading, imgDetails } = storeToRefs(store);
     const { addMarkedId } = store;
 
     const goBack = () => {
@@ -33,7 +33,7 @@ export default {
 
     return {
       imgDetails,
-      loading,
+      isLoading,
       goBack,
     };
   },

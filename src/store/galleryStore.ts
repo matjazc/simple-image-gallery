@@ -14,7 +14,7 @@ export interface Image {
 interface State {
   images: Image[];
   imgDetails: Image | null;
-  loading: boolean;
+  isLoading: boolean;
   currentPage: number;
   markedImages: string[];
 }
@@ -23,13 +23,13 @@ export const useGalleryStore = defineStore("gallery", {
   state: (): State => ({
     images: [],
     imgDetails: null,
-    loading: false,
+    isLoading: false,
     currentPage: 1,
     markedImages: [],
   }),
   actions: {
     async getImages() {
-      this.loading = true;
+      this.isLoading = true;
 
       try {
         const response = await axios.get<Image[]>(
@@ -41,11 +41,11 @@ export const useGalleryStore = defineStore("gallery", {
         console.error("Error fetching images:", error);
         return error;
       } finally {
-        this.loading = false;
+        this.isLoading = false;
       }
     },
     async getImgDetails(id: string) {
-      this.loading = true;
+      this.isLoading = true;
 
       try {
         const response = await axios.get<Image>(
@@ -57,7 +57,7 @@ export const useGalleryStore = defineStore("gallery", {
         console.error("Error fetching image details:", error);
         return error;
       } finally {
-        this.loading = false;
+        this.isLoading = false;
       }
     },
     setCurrentPage(page: number) {
