@@ -46,6 +46,7 @@ export default {
   .iconLeft {
     height: 24px;
     margin-right: 5px;
+    cursor: pointer;
   }
 
   .author {

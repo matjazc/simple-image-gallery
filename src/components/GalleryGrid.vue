@@ -19,11 +19,11 @@ export default defineComponent({
   },
   setup() {
     const store = useGalleryStore();
-    const { images, currentPage } = storeToRefs(store);
+    const { images } = storeToRefs(store);
     const { getImages } = store;
 
     onMounted(() => {
-      getImages(currentPage.value);
+      getImages();
     });
 
     return {
