@@ -3,7 +3,7 @@ import { MAX_ITEMS_PER_PAGE } from "@/constants/constants";
 import axios from "axios";
 import { defineStore } from "pinia";
 
-interface Image {
+export interface Image {
   id: string;
   author: string;
   download_url: string;
@@ -26,12 +26,12 @@ export const useGalleryStore = defineStore("gallery", {
     currentPage: 1,
   }),
   actions: {
-    async getImages(page: number) {
+    async getImages() {
       this.loading = true;
 
       try {
         const response = await axios.get<Image[]>(
-          `${apiRoutes.RANDOM_IMAGES}/v2/list?page=${page}&limit=${MAX_ITEMS_PER_PAGE}`
+          `${apiRoutes.RANDOM_IMAGES}/v2/list?page=${this.currentPage}&limit=${MAX_ITEMS_PER_PAGE}`
         );
 
         this.images = response.data;
@@ -57,6 +57,9 @@ export const useGalleryStore = defineStore("gallery", {
       } finally {
         this.loading = false;
       }
+    },
+    setCurrentPage(page: number) {
+      this.currentPage = page;
     },
   },
 });
