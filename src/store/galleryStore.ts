@@ -38,7 +38,6 @@ export const useGalleryStore = defineStore("gallery", {
 
         this.images = response.data;
       } catch (error) {
-        console.error("Error fetching images:", error);
         return error;
       } finally {
         this.isLoading = false;
@@ -54,7 +53,6 @@ export const useGalleryStore = defineStore("gallery", {
 
         this.imgDetails = response.data;
       } catch (error) {
-        console.error("Error fetching image details:", error);
         return error;
       } finally {
         this.isLoading = false;
